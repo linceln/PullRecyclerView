@@ -8,7 +8,12 @@ import android.support.v7.widget.RecyclerView;
  * Powered by www.stay4it.com
  */
 public interface ILayoutManager {
+
     RecyclerView.LayoutManager getLayoutManager();
-    int findLastVisiblePosition();
+
+    int orientation();
+
+//    int findLastVisiblePosition();
+
     void setUpAdapter(BaseAdapter adapter);
 }

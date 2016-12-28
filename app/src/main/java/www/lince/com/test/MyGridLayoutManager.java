@@ -31,9 +31,14 @@ public class MyGridLayoutManager extends GridLayoutManager implements ILayoutMan
     }
 
     @Override
-    public int findLastVisiblePosition() {
-        return findLastVisibleItemPosition();
+    public int orientation() {
+        return getOrientation();
     }
+
+//    @Override
+//    public int findLastVisiblePosition() {
+//        return findLastVisibleItemPosition();
+//    }
 
     @Override
     public void setUpAdapter(BaseAdapter adapter) {

@@ -4,14 +4,14 @@ import android.support.v7.widget.RecyclerView;
 
 public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScrollListener {
 
-    private ILayoutManager mLayoutManager;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     private BaseAdapter mAdapter;
 
     //当前页，从1开始
     private int currentPage = 1;
 
-    public EndlessRecyclerOnScrollListener(ILayoutManager layoutManager, BaseAdapter adapter) {
+    public EndlessRecyclerOnScrollListener(RecyclerView.LayoutManager layoutManager, BaseAdapter adapter) {
 
         mLayoutManager = layoutManager;
         mAdapter = adapter;
@@ -21,9 +21,25 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
 
         super.onScrollStateChanged(recyclerView, newState);
-        if (newState == RecyclerView.SCROLL_STATE_IDLE && mAdapter.isLoadMoreEnabled() && checkIfNeedLoadMore()) {
-            onLoadMore(currentPage);
-        }
+
+//        if (mLayoutManager.orientation() == LinearLayoutManager.VERTICAL) {
+            if (newState == RecyclerView.SCROLL_STATE_IDLE && recyclerView.canScrollVertically(-1)) {
+                onNextPage(currentPage);
+            }
+//        }
+//        else if (mLayoutManager.orientation() == LinearLayoutManager.HORIZONTAL) {
+//            if (newState == RecyclerView.SCROLL_STATE_IDLE && recyclerView.canScrollHorizontally(-1)) {
+//                onNextPage(currentPage);
+//            }
+//        } else if (mLayoutManager.orientation() == StaggeredGridLayoutManager.VERTICAL) {
+//
+//        } else if (mLayoutManager.orientation() == StaggeredGridLayoutManager.HORIZONTAL) {
+//
+//        }
+
+//        if (newState == RecyclerView.SCROLL_STATE_IDLE && mAdapter.isPullUpEnabled() && checkIfNeedLoadMore()) {
+//            onNextPage(currentPage);
+//        }
     }
 
     @Override
@@ -32,13 +48,12 @@ public abstract class EndlessRecyclerOnScrollListener extends RecyclerView.OnScr
         super.onScrolled(recyclerView, dx, dy);
     }
 
-    private boolean checkIfNeedLoadMore() {
-        int lastVisibleItemPosition = mLayoutManager.findLastVisiblePosition();
-        int totalCount = mLayoutManager.getLayoutManager().getItemCount();
-        return totalCount - lastVisibleItemPosition < 5;
-    }
+//    private boolean checkIfNeedLoadMore() {
+//        int lastVisibleItemPosition = mLayoutManager.findLastVisiblePosition();
+//        int totalCount = mLayoutManager.getLayoutManager().getItemCount();
+//        return totalCount - lastVisibleItemPosition < 5;
+//    }
 
-    public abstract void onLoadMore(int currentPage);
-
+    public abstract void onNextPage(int currentPage);
 }
 

@@ -13,8 +13,8 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
 
     private static final int VIEW_ITEM = 0;
     private static final int VIEW_PROGRESS = 1;
-    protected Context context;
-    protected List<T> list;
+    private Context context;
+    private List<T> list;
     private boolean isLoadMoreEnabled = false;
 
     public BaseAdapter(Context context, List<T> list) {
@@ -92,7 +92,7 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
      */
     public abstract int getItemLayoutId();
 
-    public boolean isLoadMoreEnabled() {
+    public boolean isPullUpEnabled() {
 
         return isLoadMoreEnabled;
     }
@@ -102,9 +102,19 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
      *
      * @param b
      */
-    public void setLoadMoreEnabled(boolean b) {
+    public void setPullUpEnabled(boolean b) {
 
         isLoadMoreEnabled = b;
+    }
+
+    /**
+     * 上拉加载完成调用
+     */
+    public void onRefreshCompleted() {
+
+        if (isLoadMoreEnabled) {
+            notifyItemRemoved(getItemCount());
+        }
     }
 
     /**
@@ -114,6 +124,6 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
      * @return
      */
     public boolean isFooterPosition(int position) {
-        return isLoadMoreEnabled() && position == getItemCount() - 1;
+        return isPullUpEnabled() && position == getItemCount() - 1;
     }
 }

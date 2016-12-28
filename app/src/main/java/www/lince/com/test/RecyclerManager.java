@@ -2,6 +2,7 @@ package www.lince.com.test;
 
 import android.content.Context;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 public class RecyclerManager {
@@ -10,7 +11,7 @@ public class RecyclerManager {
 
     private RecyclerView recyclerView;
     private BaseAdapter adapter;
-    private ILayoutManager layoutManager;
+    private RecyclerView.LayoutManager layoutManager;
 
     public RecyclerManager(Context context, RecyclerView recyclerView, BaseAdapter adapter) {
 
@@ -19,13 +20,13 @@ public class RecyclerManager {
         this.adapter = adapter;
 
 //        layoutManager = new MyStaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
-//        layoutManager = new MyLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-        layoutManager = new MyGridLayoutManager(context, 3);
+        layoutManager = new MyLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+//        layoutManager = new MyGridLayoutManager(context, 3);
         this.recyclerView.setHasFixedSize(true);
-        this.recyclerView.setLayoutManager(layoutManager.getLayoutManager());
-        this.recyclerView.setItemAnimator(new DefaultItemAnimator()); 
+        this.recyclerView.setLayoutManager(layoutManager);
+        this.recyclerView.setItemAnimator(new DefaultItemAnimator());
         this.recyclerView.setAdapter(adapter);
-        layoutManager.setUpAdapter(adapter);
+//        layoutManager.setUpAdapter(adapter);
     }
 
     public static RecyclerManager setupRecyclerView(final Context context, final RecyclerView recyclerView, final BaseAdapter adapter) {
@@ -48,9 +49,9 @@ public class RecyclerManager {
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager, adapter) {
 
             @Override
-            public void onLoadMore(int currentPage) {
+            public void onNextPage(int currentPage) {
 
-                if (adapter.isLoadMoreEnabled()) {
+                if (adapter.isPullUpEnabled()) {
                     if (listener != null) {
                         listener.onLoadMore(currentPage);
                     }
@@ -61,7 +62,7 @@ public class RecyclerManager {
 
     public void setLoadMoreEnabled(boolean b) {
 
-        adapter.setLoadMoreEnabled(b);
+        adapter.setPullUpEnabled(b);
     }
 
     public void notifyDataSetChanged() {
@@ -70,7 +71,7 @@ public class RecyclerManager {
 
     public void onLoadMoreCompleted() {
 
-        if (adapter.isLoadMoreEnabled()) {
+        if (adapter.isPullUpEnabled()) {
             adapter.notifyItemRemoved(adapter.getItemCount());
         }
     }

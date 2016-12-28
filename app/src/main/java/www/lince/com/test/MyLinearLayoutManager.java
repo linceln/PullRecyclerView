@@ -11,6 +11,7 @@ import android.util.AttributeSet;
  * Powered by www.stay4it.com
  */
 public class MyLinearLayoutManager extends LinearLayoutManager implements ILayoutManager {
+
     public MyLinearLayoutManager(Context context) {
         super(context);
     }
@@ -23,20 +24,23 @@ public class MyLinearLayoutManager extends LinearLayoutManager implements ILayou
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-
     @Override
     public RecyclerView.LayoutManager getLayoutManager() {
         return this;
     }
 
     @Override
-    public int findLastVisiblePosition() {
-        return findLastVisibleItemPosition();
+    public int orientation() {
+        return getOrientation();
     }
+
+
+//    @Override
+//    public int findLastVisiblePosition() {
+//        return findLastVisibleItemPosition();
+//    }
 
     @Override
     public void setUpAdapter(BaseAdapter adapter) {
-
     }
-
 }
