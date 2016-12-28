@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 
+import www.lince.com.test.adapter.BaseAdapter;
+
 
 /**
  * Created by Stay on 5/3/16.

@@ -1,4 +1,4 @@
-package www.lince.com.test;
+package www.lince.com.test.application;
 
 import android.app.Application;
 

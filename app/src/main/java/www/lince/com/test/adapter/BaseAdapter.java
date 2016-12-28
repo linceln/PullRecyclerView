@@ -1,4 +1,4 @@
-package www.lince.com.test;
+package www.lince.com.test.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
+
+import www.lince.com.test.viewholder.FooterViewHolder;
+import www.lince.com.test.viewholder.ItemViewHolder;
+import www.lince.com.test.R;
 
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

@@ -2,6 +2,8 @@ package www.lince.com.test;
 
 import android.support.v7.widget.RecyclerView;
 
+import www.lince.com.test.adapter.BaseAdapter;
+
 
 /**
  * Created by Stay on 5/3/16.
